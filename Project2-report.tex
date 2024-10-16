@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\title{Project 2: Hybrid Sorting Algorithms}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Deliverable 1: Implementation and Verification of Correctness}
+	
+	We have implemented the HybridSort algorithm, which combines MergeSort and InsertionSort. The implementation includes:
+	
+	\begin{itemize}
+		\item \textbf{InsertionSort}: For sorting small arrays.
+		\item \textbf{Merge}: For merging two sorted arrays.
+		\item \textbf{HybridSort}: Switches between MergeSort and InsertionSort based on a threshold \( K \).
+	\end{itemize}
+	
+	The correctness of our implementation was verified by comparing the output of HybridSort with Python's built-in sorting algorithm. All tests passed successfully, indicating that HybridSort behaves correctly for all inputs.
+	
+	\section*{Deliverable 2: Average Running Time vs. K (Random Arrays)}
+	
+	We conducted experiments on randomly generated arrays of various sizes \( n \) and measured the average running time of HybridSort for different values of \( K \). The results are shown in Figure \ref{fig:random}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{random_results.png}
+		\caption{Average Running Time of HybridSort on Random Arrays.}
+		\label{fig:random}
+	\end{figure}
+	
+	As seen in the figure, the running time decreases initially as \( K \) increases, but at larger values of \( K \), the running time starts to increase again. This indicates that small values of \( K \) are inefficient because they invoke MergeSort too often, whereas large values of \( K \) are inefficient because they overuse InsertionSort, which has \( O(n^2) \) complexity for larger arrays.
+	
+	\section*{Deliverable 3: Optimal K as a Function of Array Length (Random Arrays)}
+	
+	We identified the optimal \( K \) for each array size \( n \) by selecting the \( K \) value that resulted in the fastest running time. The relationship between \( n \) and optimal \( K \) is shown in Figure \ref{fig:optimal_k}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{optimal_k.png}
+		\caption{Optimal K for Different Array Sizes (Random Arrays).}
+		\label{fig:optimal_k}
+	\end{figure}
+	
+	In general, the optimal \( K \) increases as the array size \( n \) increases. This is expected since larger arrays benefit from more recursion in MergeSort, while smaller arrays can be handled more efficiently with InsertionSort.
+	
+	\section*{Deliverable 4: Average Running Time vs. K (Sorted Arrays)}
+	
+	We repeated the experiments from Deliverables 2 and 3 but with pre-sorted arrays. The results of the average running time experiments are shown in Figure \ref{fig:sorted}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{sorted_results.png}
+		\caption{Average Running Time of HybridSort on Sorted Arrays.}
+		\label{fig:sorted}
+	\end{figure}
+	
+	\textbf{Differences with Random Arrays}: As expected, InsertionSort performs better on pre-sorted arrays, which makes the algorithm faster for small values of \( K \). This is because InsertionSort has a best-case time complexity of \( O(n) \) for nearly sorted arrays, allowing it to outperform MergeSort under these conditions.
+	
+	\section*{Deliverable 4 (Continued): Optimal K as a Function of Array Length (Sorted Arrays)}
+	
+	We also repeated the analysis for the optimal \( K \) using sorted arrays. The optimal values of \( K \) for sorted arrays are shown in Figure \ref{fig:optimal_k_sorted}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{optimal_k_sorted.png}
+		\caption{Optimal K for Different Array Sizes (Sorted Arrays).}
+		\label{fig:optimal_k_sorted}
+	\end{figure}
+	
+	\textbf{Differences with Random Arrays}: In contrast to random arrays, the optimal \( K \) for sorted arrays tends to be smaller. This is because the efficiency of InsertionSort on nearly sorted arrays allows it to perform better with less recursion from MergeSort. As the array size \( n \) increases, the difference between the optimal \( K \) values for sorted and random arrays becomes more pronounced.
+	
+\end{document}
